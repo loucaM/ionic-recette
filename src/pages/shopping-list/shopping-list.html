@@ -1,18 +1,48 @@
-<!--
-  Generated template for the ShoppingListPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>shoppingList</ion-title>
+    <ion-title>shopping List</ion-title>
   </ion-navbar>
 
 </ion-header>
-
+<!-- 
+TEMPLATE DRIVEN -->
 
 <ion-content padding>
+  <!-- 
+FORMULAIRE ANGULAR 4 -->
+  <form #f="ngForm" (ngSubmit)="ajouterElement(f)" >
+  <ion-list>
+    
+      <ion-item>
+        <ion-label floating>Nom de l'ingrédient</ion-label>
+          <ion-input
+            type="text" 
+            name="nomIngredient"
+            required
+            ngModel >
+          </ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label floating>Nombre</ion-label>
+         <ion-input 
+            type="number" 
+            name="nombreIngredient" 
+            required>
+          </ion-input>
+      </ion-item>
+    
+    </ion-list>
 
+   <!-- rend invalide le formulaire si celui-ci n\est pas correctement rempli  -->
+    <button 
+    ion-button 
+    block 
+    type="submit"
+    
+    [disabled]="!f.valid">
+      Ajouter l'élément
+    </button>
+  </form>
 </ion-content>
