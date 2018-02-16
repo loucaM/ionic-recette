@@ -1,13 +1,13 @@
 import { Ingredient } from "../models/ingredient";
 
-
-
-
 export class ShoppingListService {
 
     private listeIngredients: Ingredient [] = [];
 
     ajouterIngredient(name: string, nombre:number) {
+        console.log(name);
+        console.log(nombre);
+        
         this.listeIngredients.push(new Ingredient(name, nombre));
     }
 

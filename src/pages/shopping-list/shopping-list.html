@@ -29,7 +29,9 @@ FORMULAIRE ANGULAR 4 -->
          <ion-input 
             type="number" 
             name="nombreIngredient" 
-            required>
+            required
+            ngModel
+            >
           </ion-input>
       </ion-item>
     
@@ -45,4 +47,20 @@ FORMULAIRE ANGULAR 4 -->
       Ajouter l'élément
     </button>
   </form>
+
+  <ion-list inset>
+    <ion-grid>
+       
+   
+            <ion-row *ngFor="let item of shopList">
+              <ion-col> <button ion-item >{{ item.name }}</button></ion-col>
+              <ion-col><button ion-item > {{ item.nombre }}</button></ion-col>
+            </ion-row>
+        
+    </ion-grid>
+<!-- 
+      <button ion-item *ngFor="let item of shopList">
+        {{ item.name }} 
+      </button>  -->
+    </ion-list>
 </ion-content>
