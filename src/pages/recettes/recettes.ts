@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { EditerRecettePage } from '../editer-recette/editer-recette';
 
-/**
- * Generated class for the RecettesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -20,6 +15,12 @@ export class RecettesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RecettesPage');
+  }
+
+
+  AjoutNouvelleRecette() {
+    this.navCtrl.push(EditerRecettePage, {mode: 'New'});
+
   }
 
 }
