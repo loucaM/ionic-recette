@@ -31,15 +31,20 @@ export class ShoppingListPage {
     }
     /*   Angular 4 ajouter élément formulaire*/
   ajouterElement(form: NgForm) {
-  
      this.shoppingListService.ajouterIngredient(form.value.nomIngredient, form.value.nombreIngredient) ;
      form.reset();
-     this.chargerListeIngredients() ;
-
-     
+     this.chargerListeIngredients() ;   
  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShoppingListPage');
+  }
+
+
+  supprimerDeShoppingList(index: number) {
+    this.shoppingListService.supprimerIngredient(index) ;
+    console.log(index) ;
+    this.chargerListeIngredients();
   }
 
 }

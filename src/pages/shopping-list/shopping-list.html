@@ -48,19 +48,44 @@ FORMULAIRE ANGULAR 4 -->
     </button>
   </form>
 
-  <ion-list inset>
+
+
+  <ion-content  >
+      <ion-list >
+        <ion-item-sliding *ngFor="let item of shopList; let i = index" >
+          <ion-item>
+              <h2>{{ item.name }}</h2>
+              <p> {{ item.nombre }}</p>
+          </ion-item>
+          <ion-item-options>
+            <button ion-button (click)="supprimerDeShoppingList(i)" color="danger">
+              <ion-icon name="trash"></ion-icon>
+              Supprimer
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      
+      </ion-list>
+      
+      </ion-content>
+
+
+
+
+<!--   <ion-list inset>
     <ion-grid>
-       
-   
             <ion-row *ngFor="let item of shopList">
               <ion-col> <button ion-item >{{ item.name }}</button></ion-col>
               <ion-col><button ion-item > {{ item.nombre }}</button></ion-col>
             </ion-row>
         
     </ion-grid>
+  </ion-list>
+</ion-content> -->
+
+
 <!-- 
       <button ion-item *ngFor="let item of shopList">
         {{ item.name }} 
       </button>  -->
-    </ion-list>
-</ion-content>
+

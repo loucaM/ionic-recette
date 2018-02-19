@@ -25,4 +25,8 @@ export class ShoppingListService {
         return this.listeIngredients.slice();
     }
 
+    supprimerIngredientIndex(index: number) {
+        this.listeIngredients.slice(index, 1) ;
+    }
+
 }
