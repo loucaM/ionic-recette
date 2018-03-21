@@ -10,6 +10,8 @@ import { RecettesPage } from '../pages/recettes/recettes';
 import { EditerRecettePage } from '../pages/editer-recette/editer-recette';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ShoppingListService } from '../services/shopping-list.service';
+import { RecettesService } from '../services/recette';
+import { DetailsRecettePage } from '../pages/details-recette/details-recette';
 
 @NgModule({
   declarations: [
@@ -17,11 +19,13 @@ import { ShoppingListService } from '../services/shopping-list.service';
     ShoppingListPage,
     RecettesPage,
     EditerRecettePage,
-    TabsPage
+    TabsPage,
+    DetailsRecettePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -29,14 +33,16 @@ import { ShoppingListService } from '../services/shopping-list.service';
     ShoppingListPage,
     RecettesPage,
     EditerRecettePage,
-    TabsPage
+    TabsPage,
+    DetailsRecettePage
   
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ShoppingListService
+    ShoppingListService,
+    RecettesService
   ]
 })
 export class AppModule {}

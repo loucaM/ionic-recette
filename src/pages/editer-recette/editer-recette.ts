@@ -5,8 +5,8 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
-
-
+import { RecettesService } from '../../services/recette';
+import { Recette } from '../../models/recette';
 
 @IonicPage()
 @Component({
@@ -16,11 +16,17 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 export class EditerRecettePage implements OnInit{
   mode = 'New';
   selectOptions = ['Facile', 'Moyenne','Difficile'];
+  recette: Recette;
+  index: number;
 
    /* REACTIVE FORM --- ANGULAR 2 */
   recipeForm: FormGroup;
   ngOnInit() {
     this.mode = this.navParams.get('mode');
+    if (this.mode =='Edit') {
+      this.recette = this.navParams.get('recette');
+      this.index = this.navParams.get('index');
+    }
     this.initializeForm();
   }
 
@@ -29,7 +35,9 @@ export class EditerRecettePage implements OnInit{
     private navParams: NavParams, 
     private actionSheetController: ActionSheetController, 
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController)
+    private toastCtrl: ToastController,
+    private recetteService: RecettesService,
+    )
      {
   }
 
@@ -74,16 +82,43 @@ export class EditerRecettePage implements OnInit{
 
   /* REACTIVE FORM --- ANGULAR 2 */
   private initializeForm() {
+    let titre = null;
+    let description = null;
+    let difficulte = 'Moyen';
+    let ingredients = [];
+
+    if (this.mode =='Edit') {
+      titre = this.recette.titre;
+      description = this.recette.description;
+      difficulte = this.recette.difficulte;
+
+      // ici, on a besoin d'un form Control et non d'un formArray
+      for (let ingredient of this.recette.ingredients) {
+        ingredients.push(new FormControl(ingredient.nom, Validators.required));
+      }
+    }
     this.recipeForm = new FormGroup( {
-      'titre' : new FormControl(null, Validators.required),
-      'description' : new FormControl(null, Validators.required),
-      'difficulté': new FormControl('Moyenne',Validators.required),
-      'ingredients': new FormArray([])
+      'titre' : new FormControl(titre, Validators.required),
+      'description' : new FormControl(description, Validators.required),
+      'difficulte': new FormControl(difficulte,Validators.required),
+      'ingredients': new FormArray(ingredients)
     });
   } 
   
   onSubmit() {
     console.log(this.recipeForm);
+    const value = this.recipeForm.value;
+    let ingredients = [];
+    if (value.ingredients.length > 0){
+      //on retourne un tableau d'objets au lieu d'une string
+      ingredients = value.ingredients.map(name => {
+        return {name: name, amount: 1};
+      });
+    }
+    this.recetteService.ajouterRecettes(value.titre, value.description, value.difficulte, ingredients);
+    this.recipeForm.reset();
+    this.navCtrl.popToRoot();
+    
   }
 
   /* An Action Sheet is a dialog that lets the user choose from a set of options */
