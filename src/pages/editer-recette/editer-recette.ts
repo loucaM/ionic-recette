@@ -94,7 +94,7 @@ export class EditerRecettePage implements OnInit{
 
       // ici, on a besoin d'un form Control et non d'un formArray
       for (let ingredient of this.recette.ingredients) {
-        ingredients.push(new FormControl(ingredient.nom, Validators.required));
+        ingredients.push(new FormControl(ingredient.name, Validators.required));
       }
     }
     this.recipeForm = new FormGroup( {
@@ -115,7 +115,12 @@ export class EditerRecettePage implements OnInit{
         return {name: name, amount: 1};
       });
     }
-    this.recetteService.ajouterRecettes(value.titre, value.description, value.difficulte, ingredients);
+    if (this.mode == 'Edit') {
+      this.recetteService.updateRecette(this.index, value.title, value.description, value.difficulte, ingredients);
+    } else {
+      this.recetteService.ajouterRecettes(value.titre, value.description, value.difficulte, ingredients);
+      
+    }
     this.recipeForm.reset();
     this.navCtrl.popToRoot();
     

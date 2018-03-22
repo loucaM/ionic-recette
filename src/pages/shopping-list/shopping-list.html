@@ -1,10 +1,28 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>shopping List</ion-title>
-  </ion-navbar>
-
-</ion-header>
+    <ion-navbar>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+              <ion-buttons left>
+                  <button ion-button icon-only menuToggle>
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+                </ion-buttons>
+          </ion-col>
+          <ion-col>
+              <ion-title >Shopping Liste</ion-title>
+           </ion-col>
+           <ion-col>
+              <ion-buttons end>
+                  <button ion-button icon-only (tap)="AjoutNouvelleRecette()">
+                    <ion-icon name="add"></ion-icon>
+                  </button>
+                </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-navbar>
+  </ion-header>
 <!-- 
 TEMPLATE DRIVEN -->
 
@@ -68,24 +86,3 @@ FORMULAIRE ANGULAR 4 -->
       </ion-list>
       
       </ion-content>
-
-
-
-
-<!--   <ion-list inset>
-    <ion-grid>
-            <ion-row *ngFor="let item of shopList">
-              <ion-col> <button ion-item >{{ item.name }}</button></ion-col>
-              <ion-col><button ion-item > {{ item.nombre }}</button></ion-col>
-            </ion-row>
-        
-    </ion-grid>
-  </ion-list>
-</ion-content> -->
-
-
-<!-- 
-      <button ion-item *ngFor="let item of shopList">
-        {{ item.name }} 
-      </button>  -->
-

@@ -12,6 +12,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ShoppingListService } from '../services/shopping-list.service';
 import { RecettesService } from '../services/recette';
 import { DetailsRecettePage } from '../pages/details-recette/details-recette';
+import { SigninPage } from '../pages/signin/signin';
+import { SignupPage } from '../pages/signup/signup';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { DetailsRecettePage } from '../pages/details-recette/details-recette';
     RecettesPage,
     EditerRecettePage,
     TabsPage,
-    DetailsRecettePage
+    DetailsRecettePage,
+    SigninPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import { DetailsRecettePage } from '../pages/details-recette/details-recette';
     RecettesPage,
     EditerRecettePage,
     TabsPage,
-    DetailsRecettePage
+    DetailsRecettePage,
+    SigninPage,
+    SignupPage
   
   ],
   providers: [

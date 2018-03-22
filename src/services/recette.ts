@@ -28,6 +28,6 @@ export class RecettesService {
     }
 
         supprimerRecette(index: number) {
-            this.recettes.slice(index,1);
+            this.recettes.splice(index,1);
         }
 }
