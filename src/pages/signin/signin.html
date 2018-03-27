@@ -12,19 +12,24 @@
           <ion-col>
               <ion-title >Signin</ion-title>
            </ion-col>
-           <ion-col>
-              <ion-buttons end>
-                  <button ion-button icon-only (tap)="AjoutNouvelleRecette()">
-                    <ion-icon name="add"></ion-icon>
-                  </button>
-                </ion-buttons>
-          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-navbar>
   </ion-header>
 
 
-<ion-content padding>
-
-</ion-content>
+  <ion-content padding>
+    <form #f="ngForm" (ngSubmit)="onSignin(f)" >
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>Mail</ion-label>
+          <ion-input type="email" name="email" ngModel required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Password</ion-label>
+          <ion-input type="password" name="password" ngModel required></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button block type="submit" [disabled]="!f.valid">Signin</button>
+    </form>
+  </ion-content>

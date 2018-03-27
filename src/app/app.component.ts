@@ -8,6 +8,7 @@ import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
+import firebase from 'firebase' ;
 @Component({
   templateUrl: 'app.html'
 })
@@ -25,6 +26,10 @@ export class MyApp {
     splashScreen: SplashScreen,
     private menuCtrl: MenuController) {
     platform.ready().then(() => {
+      firebase.initializeApp({
+        apiKey: "AIzaSyBGD4qQeG_DrBkhjr50zN30hMLxcVFpRIY",
+        authDomain: "ionic3-recette.firebaseapp.com"
+      });
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
