@@ -20,27 +20,30 @@
             <button
             ion-item
             icon-left
-            (tap)="onLoad(signinPage)">
+            (tap)="onLoad(signinPage)"
+            *ngIf="!isAuthenticated">
             <ion-icon name="log-in"></ion-icon>
                 Signin
             </button>
             <button
             ion-item
             icon-left
-            (tap)="onLoad(signupPage)">
+            (tap)="onLoad(signupPage)"
+            *ngIf="!isAuthenticated">
             <ion-icon name="person"></ion-icon>
                 Signup
             </button>
             <button
             ion-item
             icon-left
-            (tap)="onLogOut()">
+            (tap)="onLogout()"
+            *ngIf="isAuthenticated">
             <ion-icon name="log-out"></ion-icon>
-                Signup
+                Logout
             </button>
             
         </ion-list>
     </ion-content>
 </ion-menu>
-<ion-nav [root]="tabsPage" #nav></ion-nav>
+<ion-nav [root]="rootPage" #nav></ion-nav>
 

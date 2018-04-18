@@ -1,6 +1,16 @@
 import { Ingredient } from "../models/ingredient";
+import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from "./auth";
 
+
+@Injectable()
 export class ShoppingListService {
+
+    constructor(
+        private http: HttpClient,
+        private authService: AuthService
+    ) {}
 
     private listeIngredients: Ingredient [] = [];
 
@@ -27,6 +37,13 @@ export class ShoppingListService {
 
     supprimerIngredientIndex(index: number) {
         this.listeIngredients.slice(index, 1) ;
+    }
+
+    storeList(token: string) {
+        const uid = this.authService.getActiveUser().uid;
+        return this.http.put<Array<Ingredient>>('https://ionic3-recette.firebaseio.com/'+
+         uid + '/shopping-list.json?auth=' + token, this.listeIngredients);
+        
     }
 
 }
