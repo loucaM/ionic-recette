@@ -15,8 +15,8 @@ import { DetailsRecettePage } from '../pages/details-recette/details-recette';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { AuthService } from '../services/auth';
-import { SLOptionsPage } from '../pages/shopping-list/sl-options/sl-option';
 import { HttpClientModule } from '@angular/common/http';
+import { DatabaseOptionsPage } from '../pages/database-option/database-option';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     DetailsRecettePage,
     SigninPage,
     SignupPage,
-    SLOptionsPage
+    DatabaseOptionsPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     DetailsRecettePage,
     SigninPage,
     SignupPage,
-    SLOptionsPage
+    DatabaseOptionsPage
+    
   
   ],
   providers: [

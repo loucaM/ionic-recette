@@ -2,6 +2,7 @@ import { Ingredient } from "../models/ingredient";
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from "./auth";
+import { Recette } from "../models/recette";
 
 
 @Injectable()
@@ -43,7 +44,11 @@ export class ShoppingListService {
         const uid = this.authService.getActiveUser().uid;
         return this.http.put<Array<Ingredient>>('https://ionic3-recette.firebaseio.com/'+
          uid + '/shopping-list.json?auth=' + token, this.listeIngredients);
-        
     }
 
+    getListIngredientServer(token : string) {
+        const uid = this.authService.getActiveUser().uid;
+        return this.http.get<Array<Ingredient>>('https://ionic3-recette.firebaseio.com/'+
+        uid + '/shopping-list.json?auth=' + token);
+    }
 }

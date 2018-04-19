@@ -14,12 +14,19 @@
             <ion-title >Recettes</ion-title>
          </ion-col>
          <ion-col>
-            <ion-buttons end>
-                <button ion-button icon-only (tap)="AjoutNouvelleRecette()">
-                  <ion-icon name="add"></ion-icon>
+            <ion-buttons>
+                <button  ion-button icon-only (tap)="AjoutNouvelleRecette()">
+                  <ion-icon  end name="add"></ion-icon>
                 </button>
               </ion-buttons>
         </ion-col>
+       <ion-col>
+          <ion-buttons end>
+              <button ion-button icon-only (tap)="onShowOptions($event)">
+                <ion-icon name="more"></ion-icon>
+              </button>
+            </ion-buttons>
+      </ion-col>
       </ion-row>
     </ion-grid>
   </ion-navbar>

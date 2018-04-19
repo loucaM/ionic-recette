@@ -4,11 +4,14 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { ShoppingListService } from '../../services/shopping-list.service';
 import { Ingredient } from '../../models/ingredient';
 import { PopoverController } from 'ionic-angular/components/popover/popover-controller';
-import { SLOptionsPage } from './sl-options/sl-option';
 import { Popover } from 'ionic-angular/components/popover/popover';
 import { AuthService } from '../../services/auth';
 import { HttpClientModule } from '@angular/common/http';
 import { errorHandler } from '@angular/platform-browser/src/browser';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { Loading } from 'ionic-angular/components/loading/loading';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { DatabaseOptionsPage } from '../database-option/database-option';
 
 @IonicPage()
 @Component({
@@ -27,7 +30,9 @@ export class ShoppingListPage {
     public shoppingListService: ShoppingListService,
     private popoverCtrl: PopoverController,
     private authService: AuthService,
-    private http: HttpClientModule
+    private http: HttpClientModule,
+    private loadingCtrl: LoadingController,
+    private alerteCtrl : AlertController
   ) 
     { }
 
@@ -40,11 +45,11 @@ export class ShoppingListPage {
       this.chargerListeIngredients() ;
     }
     /*   Angular 4 ajouter élément formulaire*/
-  ajouterElement(form: NgForm) {
+    ajouterElement(form: NgForm) {
      this.shoppingListService.ajouterIngredient(form.value.nomIngredient, form.value.nombreIngredient) ;
      form.reset();
      this.chargerListeIngredients() ;   
- }
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShoppingListPage');
@@ -58,21 +63,41 @@ export class ShoppingListPage {
   }
 
   onShowOptions(event: MouseEvent) {
-    const popover = this.popoverCtrl.create(SLOptionsPage);
+    const loading = this.loadingCtrl.create({
+      content: 'Please wait ...'
+    });
+    const popover = this.popoverCtrl.create(DatabaseOptionsPage);
     popover.present({ev: event});
     popover.onDidDismiss(
       data => {
         if (data.action =='load'){
-           
-        } else {
+          loading.present();
+           this.authService.getActiveUser().getToken()
+          .then(
+            (token: string) => {
+              this.shoppingListService.getListIngredientServer(token)
+               .subscribe(
+                 (ingredients: Ingredient[]) => {
+                   loading.dismiss();
+                   this.shoppingListService.ajouterIngredients(ingredients)
+                 },
+                  error => {
+                    loading.dismiss();
+                    console.log(error)},
+                )
+            }
+          )
+        } else if(data.action == 'store') {
+          loading.present();
           this.authService.getActiveUser().getToken()
           .then(
             (token: string) => {
               this.shoppingListService.storeList(token)
               .subscribe(
-                () => console.log('Success'),
+                () =>  loading.dismiss(),
                 error => {
-                  console.log(error);
+                  loading.dismiss();
+                  this.handleError(error.json().error);
                 });
             }
           );
@@ -80,4 +105,14 @@ export class ShoppingListPage {
       }
     );
   }
+
+  private handleError(errorMessage: string) {
+    const alert = this.alerteCtrl.create({
+      title: 'An error occured!',
+      message: errorMessage,
+      buttons: ['Ok']
+    });
+    alert.present();
+  }
 }
+
